@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "80648663930",
+    "firebase_url": "https://centraleetext.firebaseio.com",
+    "project_id": "centraleetext",
+    "storage_bucket": "centraleetext.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80648663930:android:2becca092db7e296",
+        "android_client_info": {
+          "package_name": "com.yashwanth.centraleetext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80648663930-34kkqh9qvqdbb3a7r032dbjnsba70dg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yashwanth.centraleetext",
+            "certificate_hash": "2eb09fb30cdf931a9c4185b2e2d488169dc6bf43"
+          }
+        },
+        {
+          "client_id": "80648663930-mh22v62hf5sqnplff331mqf04csjp6hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCABSey8wWHV5SjR-5FFbCq-J5PMJrcuM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80648663930-mh22v62hf5sqnplff331mqf04csjp6hr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
