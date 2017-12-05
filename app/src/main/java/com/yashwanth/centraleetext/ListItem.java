@@ -5,19 +5,25 @@ package com.yashwanth.centraleetext;
  */
 
 public class ListItem {
-    private String header;
-    private String description;
+    private String company;
+    private String date;
+    private String employee;
 
-    public ListItem(String header, String description) {
-        this.header = header;
-        this.description = description;
+    public ListItem(String company, String date, String employee) {
+        this.company = company;
+        this.date = date;
+        this.employee = employee;
     }
 
-    public String getHeader() {
-        return header;
+    public String getCompany() {
+        return company;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDate() {
+        return date;
+    }
+
+    public String getEmployee() {
+        return employee;
     }
 }

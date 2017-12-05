@@ -7,8 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,11 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
+public class Login extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private Button mAdmin,mEmployee;
+    private EditText mEmail,mPassword;
+    private Button mLogin;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -31,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         mAuth=FirebaseAuth.getInstance();
+
         progressDialog=new ProgressDialog(this);
 
         firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
                 if (user!=null){
-                    progressDialog.setMessage("Verifying");
+                    progressDialog.setMessage("Logging in...");
                     progressDialog.show();
                     final String userId=mAuth.getCurrentUser().getUid();
                     DatabaseReference userDB= FirebaseDatabase.getInstance().getReference().child("users");
@@ -53,17 +57,17 @@ public class MainActivity extends AppCompatActivity {
                                     if (snapshot.getKey().equals(userId)){
                                         progressDialog.dismiss();
                                         if ((boolean)snapshot.getValue()){
-                                            startActivity(new Intent(MainActivity.this,AdminActivity.class));
+                                            startActivity(new Intent(Login.this,AdminActivity.class));
                                         }
                                         else{
-                                            startActivity(new Intent(MainActivity.this,EmployeeActivity.class));
+                                            startActivity(new Intent(Login.this,EmployeeActivity.class));
                                         }
                                         finish();
                                         return;
                                     }
                                 }
                                 mAuth.signOut();
-                                Toast.makeText(MainActivity.this, "enter a employee mail id", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "enter a employee mail id", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -76,20 +80,21 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        mAdmin=(Button)findViewById(R.id.adminButton);
-        mEmployee=(Button)findViewById(R.id.employeeButton);
+        mEmail=(EditText) findViewById(R.id.email);
+        mPassword=(EditText) findViewById(R.id.password);
+        mLogin=(Button)findViewById(R.id.login);
 
-        mAdmin.setOnClickListener(new View.OnClickListener() {
+        mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,AdminLogin.class));
-            }
-        });
+            public void onClick(View view) {
+                final String email=mEmail.getText().toString().trim();
+                final String password=mPassword.getText().toString().trim();
+                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-        mEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,EmployeeLogin.class));
+                    }
+                });
             }
         });
     }

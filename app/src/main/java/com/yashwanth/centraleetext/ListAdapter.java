@@ -1,13 +1,17 @@
 package com.yashwanth.centraleetext;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by yashw on 05-12-2017.
@@ -33,10 +37,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        ListItem listItem=listItems.get(position);
+        final ListItem listItem=listItems.get(position);
 
-        holder.mHeader.setText(listItem.getHeader());
-        holder.mDescription.setText(listItem.getDescription());
+        holder.mCompany.setText(listItem.getCompany());
+        holder.mDate.setText(listItem.getDate());
+        holder.mEmployee.setText(listItem.getEmployee());
     }
 
     @Override
@@ -44,16 +49,26 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return listItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView mHeader;
-        public TextView mDescription;
+        public TextView mCompany;
+        public TextView mDate;
+        public TextView mEmployee;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mHeader=(TextView)itemView.findViewById(R.id.heading);
-            mDescription=(TextView)itemView.findViewById(R.id.description);
+            itemView.setOnClickListener(this);
+
+            mCompany=(TextView)itemView.findViewById(R.id.company);
+            mDate=(TextView)itemView.findViewById(R.id.date);
+            mEmployee=(TextView)itemView.findViewById(R.id.employee);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(context,CompanyInfo.class);
+            context.startActivity(intent);
         }
     }
 }
